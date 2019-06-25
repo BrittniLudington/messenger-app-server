@@ -7,6 +7,7 @@ const client = new Client({
 })
 if(DATABASE_URL !== "none")
 {
+
     client.connect((err) =>
     {
         if(err)
