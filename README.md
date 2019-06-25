@@ -55,3 +55,9 @@ endpoints regarding messages
 - Parameters: none
 - Returns array of all messages
 - For TESTING ONLY
+
+#### PUT /sending
+
+- Updates the status of read for the receiver
+- Parameters: id in params in URL
+- Returns success if update successful
