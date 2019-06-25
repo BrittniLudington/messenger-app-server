@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
 const parser = require('body-parser');
 const userRoutes = require('./userRoutes');
+const messageRoutes = require('./messageRoutes');
 const app = express();
 
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use(parser.json());
 
 app.use(userRoutes);
+app.use(messageRoutes);
 
 app.get('/', (req,res) =>
 {

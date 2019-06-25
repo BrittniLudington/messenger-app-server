@@ -39,3 +39,19 @@ endpoints regarding individual users
 - Inserts new user into table
 - Parameters: name (varchar), password (varchar)
 - Returns success if it created a new user
+
+### Message endpoints
+
+endpoints regarding messages
+
+#### POST /sending
+
+- Inserts new message into table
+- Parameters: to (id), from (id), header (varchar), subject (varchar)
+- Returns success if it created a new message
+
+#### GET /sending
+
+- Parameters: none
+- Returns array of all messages
+- For TESTING ONLY
