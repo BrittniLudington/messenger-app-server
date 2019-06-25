@@ -4,5 +4,5 @@ const {PORT} = require('./config');
 
 app.listen(PORT, () =>
 {
-    console.log("listening");
+    console.log("listening at port " + PORT);
 })
