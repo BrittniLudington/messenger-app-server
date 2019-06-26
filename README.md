@@ -56,6 +56,11 @@ endpoints regarding messages
 - Returns array of all messages
 - For TESTING ONLY
 
+#### GET /messages
+
+- Parameters: id from body
+- Returns array of messages sent to that user id
+
 #### PUT /sending
 
 - Updates the status of read for the receiver

@@ -36,4 +36,13 @@ messageRoutes.get('/sending',(req,resApp)=>
     })
 })
 
+messageRoutes.get('/messages',(req,resApp)=>
+{
+    client.query(`SELECT * from messages WHERE to = ${req.body.id}`,(err,res)=>
+    {
+        if(err)throw err;
+        resApp.status(200).jsonp(res.rows);
+    })
+})
+
 module.exports = messageRoutes;

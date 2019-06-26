@@ -22,7 +22,7 @@ app.use(messageRoutes);
 
 app.get('/', (req,res) =>
 {
-    res.send('Hello, World!');
+    res.send('Welcome to the app of the private messaging server! For information on endpoints please view the read me at the github repository:https://github.com/BrittniLudington/messenger-app-server');
 })
 
 app.use(function errorHandler(error,req,res,next)
