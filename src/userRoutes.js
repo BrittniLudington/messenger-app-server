@@ -1,7 +1,10 @@
 const express = require('express');
 const client = require('./client');
+const {requireAuth} = require('./middleware/auth');
 
 let userRoutes = express.Router();
+
+//userRoutes.all(requireAuth);
 
 userRoutes.get('/users',(req,resApp)=>
 {
@@ -11,6 +14,12 @@ userRoutes.get('/users',(req,resApp)=>
         resApp.status(200).jsonp(res.rows);
     })
 });
+
+userRoutes.get('/users/MyAccount',requireAuth,(req,resApp)=>
+{
+    console.log("hello");
+    resApp.status(200).json("success");
+})
 
 userRoutes.get('/users/:user',(req,resApp)=>
 {
@@ -32,7 +41,6 @@ userRoutes.get('/search/:query',(req,resApp)=>
 
 userRoutes.post('/users',(req,resApp)=>
 {
-    console.log(req.body);
     client.query(`SELECT MAX(id) from users`,(err,resOne)=>
     {
         if(err)throw err;
