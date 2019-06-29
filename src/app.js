@@ -16,7 +16,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use(parser.json());
-
+app.use(parser.urlencoded({ extended: true }))
 
 app.use(userRoutes);
 app.use(messageRoutes);

@@ -17,7 +17,7 @@ userRoutes.get('/users',(req,resApp)=>
 
 userRoutes.get('/users/MyAccount',requireAuth,(req,resApp)=>
 {
-    console.log("hello");
+    console.log(req);
     resApp.status(200).json("success");
 })
 
@@ -52,6 +52,7 @@ userRoutes.post('/users',(req,resApp)=>
         })
         
     })
+    
 
 })
 
