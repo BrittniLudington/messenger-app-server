@@ -29,6 +29,7 @@ endpoints regarding individual users
 - Parameters: user param in url
 - Returns user information
 
+
 #### GET /search/:query
 
 - Parameters: query param in url

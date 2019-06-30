@@ -23,21 +23,24 @@ userRoutes.get('/users/MyAccount',requireAuth,(req,resApp)=>
 
 userRoutes.get('/users/:user',(req,resApp)=>
 {
-    client.query(`SELECT * from users WHERE name = '${req.params.user}'`,(err,res)=>
+    client.query(`SELECT * from users WHERE id = ${req.params.user}`,(err,res)=>
     {
         if(err)throw err;
-        resApp.status(200).jsonp(res.rows[0]);
+        resApp.status(200).jsonp({name:res.rows[0].name,id:res.rows[0].id});
     })
 });
 
 userRoutes.get('/search/:query',(req,resApp)=>
 {
-    client.query(`SELECT * from users WHERE name ILIKE '%${req.params.query}%'`,(err,res)=>
+    let query = Buffer.from(req.params.query).toString('base64');
+    client.query(`SELECT name, id from users WHERE name ILIKE '%${query}%'`,(err,res)=>
     {
         if(err)throw err;
+        console.log(res.rows);
         resApp.status(200).jsonp(res.rows);
     })
 });
+
 
 userRoutes.post('/users',(req,resApp)=>
 {

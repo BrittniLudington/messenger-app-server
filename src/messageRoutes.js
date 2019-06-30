@@ -36,9 +36,9 @@ messageRoutes.get('/sending',(req,resApp)=>
     })
 })
 
-messageRoutes.get('/messages',(req,resApp)=>
+messageRoutes.get('/messages/:id',(req,resApp)=>
 {
-    client.query(`SELECT * from messages WHERE to = ${req.body.id}`,(err,res)=>
+    client.query(`SELECT * from messages WHERE "to" = ${req.params.id} OR "from" = ${req.params.id}`,(err,res)=>
     {
         if(err)throw err;
         resApp.status(200).jsonp(res.rows);
