@@ -17,8 +17,8 @@ userRoutes.get('/users',(req,resApp)=>
 
 userRoutes.get('/users/MyAccount',requireAuth,(req,resApp)=>
 {
-    console.log(req);
-    resApp.status(200).json("success");
+    console.log(req.id,req.name);
+    resApp.status(200).jsonp({name:req.name,id:req.id});
 })
 
 userRoutes.get('/users/:user',(req,resApp)=>

@@ -11,18 +11,18 @@ function requireAuth(req,res,next)
     {
         basicToken = token.slice('basic '.length, token.length);
     }
-
     //console.log(Buffer.from(basicToken,'base64').toString());
-    const [tokenUserName, tokenPassword] = Buffer
+    let [tokenUserName, tokenPassword] = Buffer
     .from(basicToken,'base64')
     .toString()
     .split(':');
-    console.log(tokenUserName,tokenPassword, !tokenUserName, !tokenPassword);
     if(!tokenUserName || !tokenPassword)
     {
         return res.status(401).json({error:"Unauthorized request"});
     }
-    client.query(`SELECT * from users WHERE name = '${tokenUserName}'`,(err,resOne)=>
+    tokenUserName = new Buffer(tokenUserName).toString('base64');
+    tokenPassword = new Buffer(tokenPassword).toString('base64');
+    client.query(`SELECT * from users WHERE name = '${tokenUserName}' and password = '${tokenPassword}'`,(err,resOne)=>
     {
         if(err) throw err;
         if(resOne.rows.length === 0) // no users of that name found
@@ -30,6 +30,8 @@ function requireAuth(req,res,next)
             return res.status(401).json({ error: 'Unauthorized request' });
         }
         console.log("USER FOUND");
+        req.name = tokenUserName;
+        req.id = resOne.rows[0].id;
         next();
     })
 }
