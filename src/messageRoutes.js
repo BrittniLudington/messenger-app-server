@@ -11,7 +11,6 @@ messageRoutes.post('/sending',requireAuth,(req,resApp)=>
     {
         if(errOne)throw errOne;
         let count = resOne.rows[0].max + 1;
-
         client.query(`INSERT into messages values('${req.body.header}',${req.id},${req.body.to},NOW(),'${req.body.subject}',false,true,${count})`,(errTwo,resTwo)=>
         {
             if(errTwo)throw errTwo;
