@@ -32,6 +32,7 @@ userRoutes.get('/users/:user',(req,resApp)=>
 userRoutes.get('/search/:query',(req,resApp)=>
 {
     let query = Buffer.from(req.params.query).toString('base64');
+    console.log(query);
     client.query(`SELECT name, id from users WHERE name ILIKE '%${query}%' OR name ILIKE '%${query}' OR name ILIKE '${query}%'`,(err,res)=>
     {
         if(err)throw err;
