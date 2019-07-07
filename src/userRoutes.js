@@ -15,6 +15,7 @@ userRoutes.get('/users',(req,resApp)=>
     })
 });
 
+
 userRoutes.get('/users/MyAccount',requireAuth,(req,resApp)=>
 {
     resApp.status(200).jsonp({name:req.name,id:req.id});
@@ -31,11 +32,12 @@ userRoutes.get('/users/:user',(req,resApp)=>
 
 userRoutes.get('/search/:query',(req,resApp)=>
 {
-    let query = Buffer.from(req.params.query).toString('base64');
+    let query = req.params.query;
     console.log(query);
-    client.query(`SELECT name, id from users WHERE name LIKE '%${query}%' OR name LIKE '%${query}' OR name LIKE '${query}%'`,(err,res)=>
+    client.query(`SELECT name, id from users WHERE cleanname ILIKE '%${query}%' OR cleanname ILIKE '%${query}' OR cleanname ILIKE '${query}%'`,(err,res)=>
     {
         if(err)throw err;
+        console.log(res.rows);
         resApp.status(200).jsonp(res.rows);
     })
 });
