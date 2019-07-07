@@ -49,7 +49,8 @@ userRoutes.post('/users',(req,resApp)=>
     {
         if(err)throw err;
         let count = resOne.rows[0].max + 1;
-        client.query(`INSERT into users values ('${req.body.name}','${req.body.password}',${count})`,(errOne,resTwo)=>
+        let name = Buffer(req.body.name,"base64").toString();
+        client.query(`INSERT into users values (name,password,id,cleanname) ('${req.body.name}','${req.body.password}',${count},'${name}')`,(errOne,resTwo)=>
         {
             if(errOne)throw err;
             resApp.status(200).jsonp("Success");
