@@ -33,11 +33,9 @@ userRoutes.get('/users/:user',(req,resApp)=>
 userRoutes.get('/search/:query',(req,resApp)=>
 {
     let query = req.params.query;
-    console.log(query);
     client.query(`SELECT name, id from users WHERE cleanname ILIKE '%${query}%' OR cleanname ILIKE '%${query}' OR cleanname ILIKE '${query}%'`,(err,res)=>
     {
         if(err)throw err;
-        console.log(res.rows);
         resApp.status(200).jsonp(res.rows);
     })
 });
