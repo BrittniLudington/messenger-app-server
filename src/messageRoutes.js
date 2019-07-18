@@ -7,6 +7,11 @@ let messageRoutes = express.Router();
 
 messageRoutes.post('/sending',requireAuth,(req,resApp)=>
 {
+    if(req.body.header === "" || req.body.header === undefined || req.body.to === undefined || req.body.subject === undefined)
+    {
+        resApp.status(401).jsonp("bad request");
+        return;
+    }
     client.query(`SELECT MAX(id) from messages`,(errOne,resOne)=>
     {
         if(errOne)throw errOne;
@@ -19,14 +24,6 @@ messageRoutes.post('/sending',requireAuth,(req,resApp)=>
     })
 })
 
-messageRoutes.put('/sending/:id',(req,resApp)=>
-{
-    client.query(`UPDATE messages set toread = true  where id = ${req.params.id} `,(err,res)=>
-    {
-        if(err)throw err;
-        resApp.status(200).jsonp("success");
-    })
-})
 
 messageRoutes.get('/sending',(req,resApp)=>
 {

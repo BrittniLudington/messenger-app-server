@@ -13,16 +13,6 @@ describe('App', () =>
     });
 })
 
-describe('UserRoutes',()=>
-{
-    it('GET /users returns an array of all users',(done)=>
-    {
-        chai.request(app).get('/users')
-        .end((err,res)=>
-        {
-            res.should.have.status(200);
-            res.body.should.be.a('array');
-            done();
-        })
-    });
-})
+
+
+

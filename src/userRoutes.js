@@ -44,6 +44,11 @@ userRoutes.get('/search/:query',(req,resApp)=>
 
 userRoutes.post('/users',(req,resApp)=>
 {
+    if(req.body.name === undefined || req.body.name === "" || req.body.password === undefined || req.body.password === "")
+    {
+        resApp.status(400).jsonp("bad request");
+        return;
+    }
     client.query(`SELECT MAX(id) from users`,(err,resOne)=>
     {
         if(err)throw err;

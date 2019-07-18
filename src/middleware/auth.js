@@ -29,7 +29,6 @@ function requireAuth(req,res,next)
         {
             return res.status(401).json({ error: 'Unauthorized request' });
         }
-        console.log("USER FOUND");
         req.name = tokenUserName;
         req.id = resOne.rows[0].id;
         next();
